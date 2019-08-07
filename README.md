@@ -1,2 +1,3 @@
-# rpa-doc
- Automate the generation of documentation for RPA workflows developed at Flinders University
+# RPA-Doc
+
+A CLI app to help document UiPath projects developed by the Flinders RPA team
