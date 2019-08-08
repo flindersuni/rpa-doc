@@ -4,10 +4,10 @@
   "description": "A CLI app to help document UiPath projects developed by the Flinders RPA team",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --require esm",
     "lint": "eslint .",
     "docs": "jsdoc -c .jsdocrc.json",
-    "coverage": "c8 mocha"
+    "coverage": "c8 mocha --require esm"
   },
   "private": true,
   "keywords": [
@@ -18,7 +18,7 @@
     "academic"
   ],
   "bin": {
-    "rpa-lint": "bin/rpa-doc"
+    "rpa-doc": "bin/rpa-doc"
   },
   "author": "Corey Wallis <corey.wallis@flinders.edu.au>",
   "license": "BSD-3-Clause",
