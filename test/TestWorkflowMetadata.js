@@ -171,90 +171,90 @@ describe( "WorkflowMetadata", function() {
 
       assert.doesNotThrow( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in", "type", "annotation", "defaultValue" );
+        metadata.addArgument( "Name", "InArgument", "type", "annotation", "defaultValue" );
       }, TypeError );
 
       assert.doesNotThrow( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "out", "type", "annotation", "defaultValue" );
+        metadata.addArgument( "Name", "OutArgument", "type", "annotation", "defaultValue" );
       }, TypeError );
 
       assert.doesNotThrow( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in/out", "type", "annotation", "defaultValue" );
+        metadata.addArgument( "Name", "InOutArgument", "type", "annotation", "defaultValue" );
       }, TypeError );
     } );
 
     it( "should throw an error if the type parameter is not provided", function() {
       assert.throws( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in" );
+        metadata.addArgument( "Name", "InArgument" );
       }, TypeError );
 
       assert.throws( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in" );
+        metadata.addArgument( "Name", "InArgument" );
       }, /^TypeError: type/ );
 
       assert.throws( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in", new Object() );
+        metadata.addArgument( "Name", "InArgument", new Object() );
       }, /^TypeError: type/ );
     } );
 
     it( "should throw an error if the annotation parameter is not provided", function() {
       assert.throws( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in", "string" );
+        metadata.addArgument( "Name", "InArgument", "string" );
       }, TypeError );
 
       assert.throws( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in", "string" );
+        metadata.addArgument( "Name", "InArgument", "string" );
       }, /^TypeError: annotation/ );
 
       assert.throws( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in", "string", new Object() );
+        metadata.addArgument( "Name", "InArgument", "string", new Object() );
       }, /^TypeError: annotation/ );
 
       assert.doesNotThrow( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in", "string", "", "" );
+        metadata.addArgument( "Name", "InArgument", "string", "", "" );
       }, /^TypeError: annotation/ );
     } );
 
     it( "should throw an error if the defaultValue parameter is not provided", function() {
       assert.throws( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in", "string", "" );
+        metadata.addArgument( "Name", "InArgument", "string", "" );
       }, TypeError );
 
       assert.throws( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in", "string", "" );
+        metadata.addArgument( "Name", "InArgument", "string", "" );
       }, /^TypeError: defaultValue/ );
 
       assert.throws( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in", "string", "", new Object() );
+        metadata.addArgument( "Name", "InArgument", "string", "", new Object() );
       }, /^TypeError: defaultValue/ );
 
       assert.doesNotThrow( function() {
         let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-        metadata.addArgument( "Name", "in", "string", "", "", "" );
+        metadata.addArgument( "Name", "InArgument", "string", "", "", "" );
       }, /^TypeError: defaultValue/ );
     } );
 
     it( "should store the new argument", function() {
       let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-      metadata.addArgument( "testArgument", "in", "string", "An argument for testing", "Hello World!" );
+      metadata.addArgument( "testArgument", "InArgument", "string", "An argument for testing", "Hello World!" );
 
       assert.strictEqual( metadata.arguments.size, 1 );
 
       assert.deepStrictEqual( metadata.arguments.get( "testArgument" ), {
         "name": "testArgument",
-        "direction": "in",
+        "direction": "InArgument",
         "type": "string",
         "annotation": "An argument for testing",
         "defaultValue": "Hello World!"
@@ -277,7 +277,7 @@ describe( "WorkflowMetadata", function() {
 
     it( "should return a map of arguments that were added", function() {
       let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
-      metadata.addArgument( "testArgument", "in", "string", "An argument for testing", "Hello World!" );
+      metadata.addArgument( "testArgument", "InArgument", "string", "An argument for testing", "Hello World!" );
       let workflowArguments = metadata.getArguments();
 
       assert.ok( workflowArguments instanceof Map );
@@ -285,7 +285,7 @@ describe( "WorkflowMetadata", function() {
 
       assert.deepStrictEqual( workflowArguments.get( "testArgument" ), {
         "name": "testArgument",
-        "direction": "in",
+        "direction": "InArgument",
         "type": "string",
         "annotation": "An argument for testing",
         "defaultValue": "Hello World!"

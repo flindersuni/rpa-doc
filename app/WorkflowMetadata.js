@@ -22,9 +22,9 @@ export class WorkflowMetadata {
     this.filePath = filePath;
 
     this.validArgumentDirections = [
-      "in",
-      "out",
-      "in/out"
+      "InArgument",
+      "OutArgument",
+      "InOutArgument"
     ];
 
     this.arguments = new Map();
