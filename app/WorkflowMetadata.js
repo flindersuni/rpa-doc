@@ -137,4 +137,33 @@ export class WorkflowMetadata {
     return this.arguments;
   }
 
+  /**
+   * Add the annotation / description of the workflow to the metadata.
+   *
+   * @param {string} workflowAnnotation The annotation for the workflow.
+   *
+   * @since 1.0.0
+   */
+  setWorkflowAnnotation( workflowAnnotation ) {
+    if ( !workflowAnnotation || typeof workflowAnnotation !== "string" ) {
+      throw new TypeError( "workflowAnnotation parameter is required and must be a string" );
+    }
+
+    this.workflowAnnotation = workflowAnnotation;
+  }
+
+  /**
+   * Return the annotation of the workflow.
+   *
+   * @returns {string} The annotation of the workflow.
+   * @throws {ReferenceError} If the workflow annotation has not been set.
+   * @since 1.0.0
+   */
+  getWorkflowAnnotation() {
+    if ( typeof this.workflowAnnotation === "undefined" ) {
+      throw new ReferenceError( "The workflowAnnotation property has not been set." );
+    }
+    return this.workflowAnnotation;
+  }
+
 }

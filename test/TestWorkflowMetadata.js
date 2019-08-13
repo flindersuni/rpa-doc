@@ -3,7 +3,7 @@ import { WorkflowMetadata } from "../app/WorkflowMetadata.js";
 import * as assert from "assert";
 
 /**
- * Test the Xamlmetadataation object.
+ * Test the WorkflowMetadata object.
  */
 describe( "WorkflowMetadata", function() {
 
@@ -290,6 +290,52 @@ describe( "WorkflowMetadata", function() {
         "annotation": "An argument for testing",
         "defaultValue": "Hello World!"
       } );
+    } );
+  } );
+
+  /**
+   * Test setting the name of the workflow.
+   */
+  describe( "#setWorkflowAnnotation", function() {
+    it( "should throw an error if the parameter is not supplied", function() {
+      assert.throws( function() {
+        let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
+        metadata.setWorkflowAnnotation();
+
+      }, TypeError );
+    } );
+
+    it( "should throw an error if the parameter is not a string", function() {
+      assert.throws( function() {
+        let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
+        metadata.setWorkflowAnnotation( new Object() );
+      }, TypeError );
+    } );
+
+    it( "should throw an error if the parameter is an empty string", function() {
+      assert.throws( function() {
+        let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
+        metadata.setWorkflowAnnotation( "" );
+      }, TypeError );
+    } );
+  } );
+
+  /**
+   * Test getting the name of the workflow.
+   */
+  describe( "#getWorkflowAnnotation", function() {
+    it( "should throw an error if the workflow name has not been set", function() {
+      assert.throws( function() {
+        let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
+        metadata.getWorkflowAnnotation();
+      }, ReferenceError );
+    } );
+
+    it( "should return the same workflow name that is set", function() {
+      let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
+      const testWorkflowAnnotation = "This is a test workflow annotation.";
+      metadata.setWorkflowAnnotation( testWorkflowAnnotation );
+      assert.strictEqual( testWorkflowAnnotation, metadata.getWorkflowAnnotation() );
     } );
   } );
 } );
