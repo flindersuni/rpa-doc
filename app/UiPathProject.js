@@ -151,7 +151,7 @@ export class UiPathProject {
 
       fileList = fs.readdirSync( this.projectPath ); // eslint-disable-line security/detect-non-literal-fs-filename
 
-      fileList = fileList.map( f => path.join( this.getProjectPath(), f ) );
+      //fileList = fileList.map( f => path.join( this.getProjectPath(), f ) );
     } else {
 
       // Get all workflows.
@@ -167,7 +167,7 @@ export class UiPathProject {
             .readdirSync( filePath )
             .forEach( f => tmp.push( path.join( filePath, f ) ) );
         } else if ( fileStat.isFile() ) {
-          fileList.push( path.join( this.projectPath, filePath ) );
+          fileList.push( filePath );
         }
       } while ( tmp.length !== 0 );
     }
@@ -180,6 +180,11 @@ export class UiPathProject {
     // Only return XAML files for public workflows if required.
     if ( publicOnly === true ) {
       let privateWorkflows = this.getPrivateWorkflows();
+
+      // Normalise the private workflow paths, enables cross platform comparison below.
+      privateWorkflows = privateWorkflows.map( function( workflowPath ) {
+        return path.normalize( workflowPath );
+      } );
 
       privateWorkflows.forEach( function( privateWorkflow ) {
         fileList = fileList.filter( function( xamlFile ) {
