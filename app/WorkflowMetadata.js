@@ -1,7 +1,7 @@
 import * as path from "path";
 
 /**
- * Store the documentation extracted from a XAML file.
+ * Store the metadata extracted from a XAML file.
  */
 export class WorkflowMetadata {
 
