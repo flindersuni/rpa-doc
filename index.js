@@ -4,9 +4,10 @@ import { UiPathProject } from "./app/UiPathProject.js";
 
 import commander from "commander";
 import chalk from "chalk";
-import fs from "fs";
 import path from "path";
 import prettyMS from "pretty-ms";
+import { XamlProcessor } from "./app/XamlProcessor.js";
+import { OutputMarkdown } from "./app/OutputMarkdown.js";
 
 const appPackage = require( "./package.json" );
 
@@ -20,7 +21,8 @@ const success = chalk.bold.green;
 // Define basic program metadata.
 program.version( appPackage.version, "-v, --version" )
   .description( "Generate documentation for UiPath projects developed by the Flinders RPA team" )
-  .option( "-i, --input <required>", "Path to UiPath project directory" );
+  .option( "-i, --input <required>", "Path to UiPath project directory" )
+  .option( "-o, --output <required>", "Path to the documentation directory" );
 
 // Parse the command line parameters.
 program.parse( process.argv );
@@ -29,6 +31,13 @@ program.parse( process.argv );
 // If missing assume current working directory.
 if ( typeof( program.input ) === "undefined" ) {
   program.input = process.cwd();
+}
+
+// Check for the required output path option.
+if ( typeof( program.output ) === "undefined" ) {
+  log( error( "Error: " ) + "The --output option is required." );
+  program.outputHelp();
+  process.exit( 1 );
 }
 
 // Output some useful information.
@@ -43,9 +52,24 @@ if ( !path.isAbsolute( program.input ) ) {
   program.input = path.normalize( program.input );
 }
 
-// Get some information about the project.
-const projectInfo = new UiPathProject( program.input );
+if ( !path.isAbsolute( program.output ) ) {
+  program.output = path.resolve( process.cwd().toString(), program.output );
+} else {
 
+  // Normalise the path for sanity.
+  program.output = path.normalize( program.output );
+}
+
+// Get some information about the project.
+let projectInfo = null;
+try {
+  projectInfo = new UiPathProject( program.input );
+} catch ( err ) {
+  log( error( "Error: " ) + "Unable to read 'project.json' file." );
+  process.exit( 1 );
+}
+
+// Output some helpful information.
 log( "INFO: Project name: %s", projectInfo.getName() );
 log( "INFO: Project version: %s", projectInfo.getVersion() );
 
@@ -53,8 +77,27 @@ if ( projectInfo.isLibrary() !== true ) {
   log( warn( "WARN:" ) + " This app works best with UiPath Library projects" );
 }
 
+// Collect all of the metadata.
+let workflowMeta = [];
+let workflowFiles = projectInfo.getXamlFiles( true, true );
+let processor = new XamlProcessor();
+
+workflowFiles.forEach( function( workflowFile ) {
+  workflowMeta.push( processor.getMetadata( workflowFile ) );
+} );
+
+log( "INFO: Metadata collected on %s public workflow files.", workflowMeta.length );
+
+let output = new OutputMarkdown( program.output );
+
+// Write the documentation.
+workflowMeta.forEach( function( meta ) {
+  // eslint-disable-next-line security/detect-non-literal-fs-filename
+  output.writeFile( meta );
+} );
 
 const endTime = process.hrtime.bigint();
 const totalTime = Number( endTime - startTime ) * 1e-6;
 
 log( "INFO: Elapsed time:", prettyMS( totalTime ) );
+log( success( "Markdown files successfully created." ) );
