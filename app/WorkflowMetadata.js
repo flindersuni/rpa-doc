@@ -79,7 +79,7 @@ export class WorkflowMetadata {
     if ( typeof this.workflowName === "undefined" ) {
       throw new ReferenceError( "The workflowName property has not been set." );
     }
-    return this.workflowName;
+    return this.workflowName.trim();
   }
 
   /**
@@ -120,11 +120,11 @@ export class WorkflowMetadata {
     }
 
     this.arguments.set( name, {
-      "name": name,
-      "direction": direction,
-      "type": type,
-      "annotation": annotation,
-      "defaultValue": defaultValue
+      "name": name.trim(),
+      "direction": direction.trim(),
+      "type": type.trim(),
+      "annotation": annotation.trim().replace( /[\r\n]+/, " " ),
+      "defaultValue": defaultValue.trim().replace( "[", "" ).replace( "]", "" )
     } );
   }
 
@@ -163,7 +163,7 @@ export class WorkflowMetadata {
     if ( typeof this.workflowAnnotation === "undefined" ) {
       throw new ReferenceError( "The workflowAnnotation property has not been set." );
     }
-    return this.workflowAnnotation;
+    return this.workflowAnnotation.trim();
   }
 
 }
