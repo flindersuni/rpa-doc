@@ -1,5 +1,6 @@
 import * as path from "path";
 import * as fs from "fs";
+import * as glob from "glob";
 
 /**
  * Represents the information contained in the UiPath project.json file.
@@ -142,40 +143,14 @@ export class UiPathProject {
    */
   getXamlFiles( recursive = false, publicOnly = false ) {
 
-    // Get a list of files in the target directory.
-    let fileList = [];
+    let globPattern = path.join( this.getProjectPath(), "*.xaml" );
 
-    if ( recursive === false ) {
-
-      // Only get the top level workflows.
-
-      fileList = fs.readdirSync( this.projectPath ); // eslint-disable-line security/detect-non-literal-fs-filename
-
-      //fileList = fileList.map( f => path.join( this.getProjectPath(), f ) );
-    } else {
-
-      // Get all workflows.
-
-      let tmp = [ this.projectPath ];
-
-      do {
-        let filePath = tmp.pop();
-        let fileStat = fs.lstatSync( filePath ); // eslint-disable-line security/detect-non-literal-fs-filename
-
-        if ( fileStat.isDirectory() ) {
-          fs // eslint-disable-line security/detect-non-literal-fs-filename
-            .readdirSync( filePath )
-            .forEach( f => tmp.push( path.join( filePath, f ) ) );
-        } else if ( fileStat.isFile() ) {
-          fileList.push( filePath );
-        }
-      } while ( tmp.length !== 0 );
+    if ( recursive ) {
+      globPattern = path.join( this.getProjectPath(), "**/*.xaml" );
     }
 
-    // Filter the list of files to only XAML files.
-    fileList = fileList.filter( function( element ) {
-      return path.extname( element ) === ".xaml" && path.basename( element ).startsWith( "~" ) === false;
-    } );
+    // Get a list of files in the target directory.
+    let fileList = glob.sync( globPattern );
 
     // Only return XAML files for public workflows if required.
     if ( publicOnly === true ) {
