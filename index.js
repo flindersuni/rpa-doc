@@ -22,7 +22,8 @@ const success = chalk.bold.green;
 program.version( appPackage.version, "-v, --version" )
   .description( "Generate documentation for UiPath projects developed by the Flinders RPA team" )
   .option( "-i, --input <required>", "Path to UiPath project directory" )
-  .option( "-o, --output <required>", "Path to the documentation directory" );
+  .option( "-o, --output <required>", "Path to the documentation directory" )
+  .option( "-c, --clean", "Clean output directory prior to writing new files" );
 
 // Parse the command line parameters.
 program.parse( process.argv );
@@ -88,7 +89,14 @@ workflowFiles.forEach( function( workflowFile ) {
 
 log( "INFO: Metadata collected on %s public workflow files.", workflowMeta.length );
 
-let output = new OutputMarkdown( program.output );
+let output = null;
+try {
+  output = new OutputMarkdown( program.output, program.clean );
+} catch ( err ) {
+  log( error( "Error: " ) + err.message );
+  process.exit( 1 );
+}
+
 
 // Write the documentation.
 workflowMeta.forEach( function( meta ) {

@@ -1,6 +1,7 @@
 import { WorkflowMetadata } from "./WorkflowMetadata.js";
 
 import * as fs from "fs";
+import * as glob from "glob";
 import * as path from "path";
 import * as util from "util";
 
@@ -13,6 +14,7 @@ export class OutputMarkdown {
    * Construct a new object.
    *
    * @param {string} outputPath Path to the root directory of the output folder.
+   * @param {boolean} emptyOutput Flag to delete markdown files prior to writing new ones.
    *
    * @throws {TypeError} Parameter outputPath is required and must be a string.
    * @throws {Error} If the output path does not exist.
@@ -21,7 +23,7 @@ export class OutputMarkdown {
    *
    * @since 1.0.0
    */
-  constructor( outputPath ) {
+  constructor( outputPath, emptyOutput = false ) {
 
     if ( !outputPath || typeof outputPath !== "string" ) {
       throw new TypeError( "outputPath parameter is required and must be a string" );
@@ -38,14 +40,15 @@ export class OutputMarkdown {
       throw new Error( util.format( "The output path '%s' is not a directory", outputPath ) );
     }
 
-    // eslint-disable-next-line security/detect-non-literal-fs-filename
-    let fileList = fs.readdirSync( outputPath );
+    let fileList = glob.sync( path.join( outputPath, "*.md" ) );
 
-    // Filter out hidden files like .gitignore
-    fileList = fileList.filter( item => !( /(^|\/)\.[^/.]/g ).test( item ) );
-
-    if ( fileList.length > 0 ) {
+    if ( fileList.length > 0 && !emptyOutput ) {
       throw new Error( util.format( "The output path '%s' is not an empty directory", outputPath ) );
+    } else if ( fileList.length > 0 && emptyOutput ) {
+      fileList.forEach( function( file ) {
+        // eslint-disable-next-line security/detect-non-literal-fs-filename
+        fs.unlinkSync( file );
+      } );
     }
 
     this.outputPath = outputPath;

@@ -38,9 +38,28 @@ describe( "OutputMarkdown", function() {
     } );
 
     it( "should throw an error if the output path contains files", function() {
+
+      fs.copyFileSync( "./test/artefacts/empty-markdown-file.md", "./test/artefacts/output/markdown.md" );
+
       assert.throws( function() {
-        new OutputMarkdown( "./test/artefacts" );
+        new OutputMarkdown( "./test/artefacts/output" );
       }, /The output path .* is not an empty directory$/ );
+
+      fs.unlinkSync( "./test/artefacts/output/markdown.md" );
+    } );
+
+    it( "should not throw an error if the output path contains files and the empty flag is set", function() {
+
+      fs.copyFileSync( "./test/artefacts/empty-markdown-file.md", "./test/artefacts/output/markdown.md" );
+
+      assert.doesNotThrow( function() {
+        new OutputMarkdown( "./test/artefacts/output", true );
+      }, /The output path .* is not an empty directory$/ );
+
+      if ( fs.existsSync( "./test/artefacts/output/markdown.md" ) ) {
+        fs.unlinkSync( "./test/artefacts/output/markdown.md" );
+      }
+
     } );
 
     it( "should return an object when no errors are detected", function() {
