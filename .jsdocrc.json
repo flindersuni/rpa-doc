@@ -4,9 +4,7 @@
   ],
   "source": {
     "include": [
-      "./app/",
-      "./app/rules",
-      "./app/mocks"
+      "./app/"
     ],
     "includePattern": ".+\\.js$"
   },
