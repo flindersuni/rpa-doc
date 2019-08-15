@@ -152,13 +152,22 @@ export class UiPathProject {
     // Get a list of files in the target directory.
     let fileList = glob.sync( globPattern );
 
+    // Filter the list of files to exclude temporary files
+    fileList = fileList.filter( function( element ) {
+      return path.basename( element ).startsWith( "~" ) === false;
+    } );
+
+    fileList.map( function( filePath ) {
+      return path.posix.normalize( filePath );
+    } );
+
     // Only return XAML files for public workflows if required.
     if ( publicOnly === true ) {
       let privateWorkflows = this.getPrivateWorkflows();
 
       // Normalise the private workflow paths, enables cross platform comparison below.
       privateWorkflows = privateWorkflows.map( function( workflowPath ) {
-        return path.normalize( workflowPath );
+        return path.posix.normalize( workflowPath );
       } );
 
       privateWorkflows.forEach( function( privateWorkflow ) {
