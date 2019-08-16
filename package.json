@@ -10,6 +10,10 @@
     "coverage": "c8 mocha --require esm"
   },
   "private": true,
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/flindersuni/rpa-doc.git"
+  },
   "keywords": [
     "rpa",
     "robotic-process-automation",
