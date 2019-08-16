@@ -1,6 +1,7 @@
 import { WorkflowMetadata } from "../app/WorkflowMetadata.js";
 
 import * as assert from "assert";
+import * as path from "path";
 
 /**
  * Test the WorkflowMetadata object.
@@ -52,7 +53,7 @@ describe( "WorkflowMetadata", function() {
     it( "should return a string matching what was supplied to the constructor", function() {
       let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
 
-      assert.strictEqual( metadata.getFilePath(), "./test/artefacts/uno.xaml" );
+      assert.strictEqual( metadata.getFilePath(), path.normalize( "./test/artefacts/uno.xaml" ) );
     } );
   } );
 
@@ -336,6 +337,55 @@ describe( "WorkflowMetadata", function() {
       const testWorkflowAnnotation = "This is a test workflow annotation.";
       metadata.setWorkflowAnnotation( testWorkflowAnnotation );
       assert.strictEqual( testWorkflowAnnotation, metadata.getWorkflowAnnotation() );
+    } );
+  } );
+
+  /**
+   * Test setting the UiPath project relative file path.
+   */
+  describe( "#setProjectFilePath", function() {
+    it( "should throw an error if the parameter is not supplied", function() {
+      assert.throws( function() {
+        let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
+        metadata.setProjectFilePath();
+
+      }, TypeError );
+    } );
+
+    it( "should throw an error if the parameter is not a string", function() {
+      assert.throws( function() {
+        let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
+        metadata.setProjectFilePath( new Object() );
+      }, TypeError );
+    } );
+
+    it( "should throw an error if the parameter is an empty string", function() {
+      assert.throws( function() {
+        let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
+        metadata.setProjectFilePath( "" );
+      }, TypeError );
+    } );
+  } );
+
+  /**
+   * Test getting the UiPath project relative file path.
+   */
+  describe( "#getProjectFilePath", function() {
+    it( "should throw an error if the path has not been set", function() {
+      assert.throws( function() {
+        let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
+        metadata.getProjectFilePath();
+      }, ReferenceError );
+    } );
+
+    it( "should return the right path", function() {
+      let metadata = new WorkflowMetadata( "./test/artefacts/uno.xaml" );
+      metadata.setProjectFilePath( "./test/artefacts/" );
+      assert.strictEqual( "uno.xaml", metadata.getProjectFilePath() );
+
+      metadata = new WorkflowMetadata( "./test/artefacts/sub-folder/uno.xaml" );
+      metadata.setProjectFilePath( "./test/artefacts/" );
+      assert.strictEqual( path.normalize( "sub-folder/uno.xaml" ), metadata.getProjectFilePath() );
     } );
   } );
 } );

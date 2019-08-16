@@ -1,3 +1,4 @@
+import { UiPathProject } from "../app/UiPathProject.js";
 import { OutputMarkdown } from "../app/OutputMarkdown.js";
 import { XamlProcessor } from "../app/XamlProcessor.js";
 
@@ -101,6 +102,53 @@ describe( "OutputMarkdown", function() {
 
       fs.unlinkSync( "./test/artefacts/output/uno.md" );
 
+    } );
+
+    it( "should write files for each of the test artefacts", function() {
+      let projectInfo = new UiPathProject( "./test/artefacts" );
+
+      let xamlFiles = projectInfo.getXamlFiles( true );
+
+      let processor = new XamlProcessor();
+
+      let output = new OutputMarkdown( "./test/artefacts/output" );
+
+      xamlFiles.forEach( function( xamlFile ) {
+        let metadata = processor.getMetadata( xamlFile );
+
+        // eslint-disable-next-line security/detect-non-literal-fs-filename
+        output.writeFile( metadata );
+      } );
+
+      assert.ok( fs.existsSync( "./test/artefacts/output/uno.md" ) );
+      assert.ok( fs.existsSync( "./test/artefacts/output/dos.md" ) );
+
+      fs.unlinkSync( "./test/artefacts/output/uno.md" );
+      fs.unlinkSync( "./test/artefacts/output/dos.md" );
+    } );
+
+    it( "should use file names derived from UiPath project relative paths", function() {
+      let projectInfo = new UiPathProject( "./test/artefacts" );
+
+      let xamlFiles = projectInfo.getXamlFiles( true );
+
+      let processor = new XamlProcessor();
+
+      let output = new OutputMarkdown( "./test/artefacts/output" );
+
+      xamlFiles.forEach( function( xamlFile ) {
+        let metadata = processor.getMetadata( xamlFile );
+        metadata.setProjectFilePath( projectInfo.getProjectPath() );
+
+        // eslint-disable-next-line security/detect-non-literal-fs-filename
+        output.writeFile( metadata );
+      } );
+
+      assert.ok( fs.existsSync( "./test/artefacts/output/uno.md" ) );
+      assert.ok( fs.existsSync( "./test/artefacts/output/sub-folder-dos.md" ) );
+
+      fs.unlinkSync( "./test/artefacts/output/uno.md" );
+      fs.unlinkSync( "./test/artefacts/output/sub-folder-dos.md" );
     } );
   } );
 } );

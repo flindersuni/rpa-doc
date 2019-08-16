@@ -19,7 +19,7 @@ export class WorkflowMetadata {
       throw new TypeError( "filePath parameter is required and must be a string" );
     }
 
-    this.filePath = filePath;
+    this.filePath = path.normalize( filePath );
 
     this.validArgumentDirections = [
       "InArgument",
@@ -164,6 +164,33 @@ export class WorkflowMetadata {
       throw new ReferenceError( "The workflowAnnotation property has not been set." );
     }
     return this.workflowAnnotation.trim();
+  }
+
+  /**
+   * Set the path to the file relative to the UiPath project directory.
+   *
+   * @param {string} projectPath Normalised path to the UiPath project.
+   */
+  setProjectFilePath( projectPath ) {
+    if ( !projectPath || typeof projectPath !== "string" ) {
+      throw new TypeError( "workflowAnnotation parameter is required and must be a string" );
+    }
+
+    this.projectFilePath = path.relative( projectPath, this.getFilePath() );
+  }
+
+  /**
+   * Get the path to the file relative to the UiPath project directory.
+   *
+   * @returns {string} The normalised path to the file, relative to the project directory.
+   * @throws {ReferenceError} If the setProjectFilePath function has not been called.
+   * @since 1.0.0
+   */
+  getProjectFilePath() {
+    if ( typeof this.projectFilePath === "undefined" ) {
+      throw new ReferenceError( "The projectFilePath property has not been set." );
+    }
+    return this.projectFilePath;
   }
 
 }

@@ -23,7 +23,8 @@ program.version( appPackage.version, "-v, --version" )
   .description( "Generate documentation for UiPath projects developed by the Flinders RPA team" )
   .option( "-i, --input <required>", "Path to UiPath project directory" )
   .option( "-o, --output <required>", "Path to the documentation directory" )
-  .option( "-c, --clean", "Clean output directory prior to writing new files" );
+  .option( "-c, --clean", "Clean output directory prior to writing new files" )
+  .option( "-x, --xaml-names", "Use XAML file name to derive document file name" );
 
 // Parse the command line parameters.
 program.parse( process.argv );
@@ -84,7 +85,14 @@ let workflowFiles = projectInfo.getXamlFiles( true, true );
 let processor = new XamlProcessor();
 
 workflowFiles.forEach( function( workflowFile ) {
-  workflowMeta.push( processor.getMetadata( workflowFile ) );
+  let meta = processor.getMetadata( workflowFile );
+
+  // Use file names derived from the UiPath project path.
+  if ( program.xamlNames ) {
+    meta.setProjectFilePath( projectInfo.getProjectPath() );
+  }
+
+  workflowMeta.push( meta );
 } );
 
 log( "INFO: Metadata collected on %s public workflow files.", workflowMeta.length );
@@ -96,7 +104,6 @@ try {
   log( error( "Error: " ) + err.message );
   process.exit( 1 );
 }
-
 
 // Write the documentation.
 workflowMeta.forEach( function( meta ) {

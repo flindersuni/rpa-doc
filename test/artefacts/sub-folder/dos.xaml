@@ -55,7 +55,7 @@
       <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="dos" sap:VirtualizedContainerService.HintSize="336,1077" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence sap2010:Annotation.AnnotationText="This test XAML file is used as an artefact for some unit tests" DisplayName="dos" sap:VirtualizedContainerService.HintSize="336,1077" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="Eins" />
       <Variable x:TypeArguments="x:String" Name="Zwei" />

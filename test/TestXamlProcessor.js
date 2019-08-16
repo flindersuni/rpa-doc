@@ -253,7 +253,7 @@ describe( "XamlProcessor", function() {
 
       doc = new DOMParser().parseFromString( xamlContent );
 
-      assert.strictEqual( "", processor.getWorkflowAnnotation( doc ) );
+      assert.strictEqual( "This test XAML file is used as an artefact for some unit tests", processor.getWorkflowAnnotation( doc ) );
 
     } );
   } );

@@ -70,7 +70,18 @@ export class OutputMarkdown {
       throw new TypeError( "metadata parameter is required and must be a WorkflowMetadata object" );
     }
 
-    let outputFilePath = path.join( this.outputPath, metadata.getWorkflowName() + ".md" );
+    let outputFilePath = "";
+
+    try {
+
+      // Use a file name derived from the UiPath project relative file name if available.
+      outputFilePath =  metadata.getProjectFilePath().split( path.sep ).join( "-" ).replace( ".xaml", ".md" );
+      outputFilePath =  path.join( this.outputPath, outputFilePath );
+    } catch ( ReferenceError ) {
+
+      // Use a file name derived from the workflow name.
+      outputFilePath = path.join( this.outputPath, metadata.getWorkflowName() + ".md" );
+    }
 
     const content = [];
 
