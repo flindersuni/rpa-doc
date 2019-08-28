@@ -11,8 +11,8 @@
   },
   "private": true,
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/flindersuni/rpa-doc.git"
+    "type": "git",
+    "url": "https://github.com/flindersuni/rpa-doc.git"
   },
   "keywords": [
     "rpa",
@@ -28,11 +28,11 @@
   "license": "BSD-3-Clause",
   "devDependencies": {
     "c8": "^5.0.1",
-    "eslint": "^6.1.0",
+    "eslint": "^6.2.2",
     "eslint-config-jquery": "^2.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jsdoc": "^15.8.0",
-    "eslint-plugin-mocha": "^6.0.0",
+    "eslint-plugin-jsdoc": "^15.8.3",
+    "eslint-plugin-mocha": "^6.1.0",
     "eslint-plugin-security": "^1.4.0",
     "jsdoc": "^3.6.3",
     "mocha": "^6.2.0"
