@@ -1,6 +1,8 @@
 <!-- markdownlint-disable no-trailing-punctuation -->
 # RPA Doc #
 
+![Build Status](https://travis-ci.org/flindersuni/rpa-lint.svg?branch=master)](https://travis-ci.org/flindersuni/rpa-lint)
+
 This app is used by the Robotic Process Automation (RPA) team at [Flinders University][flinders] to document our RPA projects.
 The app assumes that the project passes all checks implemented in our [RPA Lint][rpa-lint] app.
 
