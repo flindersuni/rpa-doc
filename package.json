@@ -28,24 +28,24 @@
   "author": "Corey Wallis <corey.wallis@flinders.edu.au>",
   "license": "BSD-3-Clause",
   "devDependencies": {
-    "c8": "^7.0.0",
+    "c8": "^7.1.0",
     "eslint": "^6.8.0",
     "eslint-config-jquery": "^2.0.0",
-    "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-jsdoc": "^15.12.2",
-    "eslint-plugin-mocha": "^6.2.2",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsdoc": "^22.0.1",
+    "eslint-plugin-mocha": "^6.3.0",
     "eslint-plugin-security": "^1.4.0",
     "jsdoc": "^3.6.3",
-    "mocha": "^6.2.2"
+    "mocha": "^7.1.0"
   },
   "dependencies": {
-    "chalk": "^2.4.2",
-    "commander": "^2.20.3",
+    "chalk": "^3.0.0",
+    "commander": "^5.0.0",
     "coveralls": "^3.0.9",
     "esm": "^3.2.25",
     "glob": "^7.1.6",
-    "pretty-ms": "^5.1.0",
-    "xmldom": "^0.1.31",
+    "pretty-ms": "^6.0.1",
+    "xmldom": "^0.3.0",
     "xpath": "0.0.27"
   },
   "directories": {
