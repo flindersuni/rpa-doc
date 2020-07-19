@@ -8,7 +8,7 @@ import * as util from "util";
 /**
  * The DomParser object as part of the [xmldom]{@link https://www.npmjs.com/package/xmldom} package.
  *
- * @typedef {object} DomParser
+ * @typedef {DomParser} DomParser
  */
 
 /**
