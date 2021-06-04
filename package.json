@@ -1,6 +1,6 @@
 {
   "name": "rpa-doc",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A CLI app to help document UiPath projects developed by the Flinders RPA team",
   "main": "index.js",
   "scripts": {
