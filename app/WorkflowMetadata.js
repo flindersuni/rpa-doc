@@ -10,7 +10,6 @@ export class WorkflowMetadata {
    *
    * @param {string} filePath Path to the root directory of the UiPath project.
    * @throws {TypeError} Parameter projectPath is required and must be a string.
-   *
    * @since 1.0.0
    */
   constructor( filePath ) {
@@ -35,7 +34,6 @@ export class WorkflowMetadata {
    * Get the path to the XAML file.
    *
    * @returns {string} The full path to the XAML file.
-   *
    * @since 1.0.0
    */
   getFilePath() {
@@ -46,7 +44,6 @@ export class WorkflowMetadata {
    * Get the name of the XAML file.
    *
    * @returns {string} The file name component of the path to the XAML file.
-   *
    * @since 1.0.0
    */
   getFileName() {
@@ -57,7 +54,6 @@ export class WorkflowMetadata {
    * Add the name of the workflow to the metadata.
    *
    * @param {string} workflowName The name of the workflow.
-   *
    * @since 1.0.0
    */
   setWorkflowName( workflowName ) {
@@ -141,7 +137,6 @@ export class WorkflowMetadata {
    * Add the annotation / description of the workflow to the metadata.
    *
    * @param {string} workflowAnnotation The annotation for the workflow.
-   *
    * @since 1.0.0
    */
   setWorkflowAnnotation( workflowAnnotation ) {

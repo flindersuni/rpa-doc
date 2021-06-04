@@ -15,12 +15,10 @@ export class OutputMarkdown {
    *
    * @param {string} outputPath Path to the root directory of the output folder.
    * @param {boolean} emptyOutput Flag to delete markdown files prior to writing new ones.
-   *
    * @throws {TypeError} Parameter outputPath is required and must be a string.
    * @throws {Error} If the output path does not exist.
    * @throws {Error} If the output path is not a directory.
    * @throws {Error} If the output path is not empty.
-   *
    * @since 1.0.0
    */
   constructor( outputPath, emptyOutput = false ) {
@@ -59,9 +57,7 @@ export class OutputMarkdown {
    * Output the metadata as a markdown file.
    *
    * @param {WorkflowMetadata} metadata The metadata extracted from a workflow.
-   *
    * @throws {TypeError} Parameter metadata is required and must be a WorkflowMetadata object.
-   *
    * @since 1.0.0
    */
   writeFile( metadata ) {

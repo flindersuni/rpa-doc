@@ -137,7 +137,6 @@ export class UiPathProject {
    *
    * @param {boolean} recursive Find XAML files in the project folder and sub folders.
    * @param {boolean} publicOnly Only return public files.
-   *
    * @returns {Array} An array of XAML files.
    * @since 1.0.0
    */

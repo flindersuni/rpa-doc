@@ -40,9 +40,7 @@ export class XamlProcessor {
    * Get the metadata defined in the XAML file.
    *
    * @param {string} filePath The path to the XAML file.
-   *
    * @returns {WorkflowMetadata} A new workflow metadata object.
-   *
    * @throws {TypeError} Parameter filePath is required and must be a string.
    * @since 1.0.0
    */
@@ -88,7 +86,6 @@ export class XamlProcessor {
    * Get the name of the workflow from the XAML code.
    *
    * @param {DomParser} xamlDoc The XAML code represented as an XML DOMParser object.
-   *
    * @returns {string} The name of the workflow.
    * @throws {TypeError} Parameter xamlDoc is required and must be a DomParser object.
    * @since 1.0.0
@@ -113,7 +110,6 @@ export class XamlProcessor {
    * Get the annotation of the workflow from the XAML code.
    *
    * @param {DomParser} xamlDoc The XAML code represented as an XML DOMParser object.
-   *
    * @returns {string} The annotation of the workflow.
    * @throws {TypeError} Parameter xamlDoc is required and must be a DomParser object.
    * @since 1.0.0
@@ -142,7 +138,6 @@ export class XamlProcessor {
    * Get the list of arguments from the XAML code.
    *
    * @param {DomParser} xamlDoc The XAML code represented as an XML DOMParser object.
-   *
    * @returns {Array} The list of arguments defined in the workflow.
    * @throws {TypeError} Parameter xamlDoc is required and must be a DomParser object.
    * @since 1.0.0
@@ -199,7 +194,6 @@ export class XamlProcessor {
    * Parse the argument type XAML element attribute.
    *
    * @param {string} argumentType The string contained in the element attribute.
-   *
    * @returns {Array} The list of elements parse from the attribute string.
    * @throws {TypeError} Parameter argumentType is required and must be a DomParser object.
    * @since 1.0.0
@@ -225,7 +219,6 @@ export class XamlProcessor {
    * Get the name of the underlying class for this activity.
    *
    * @param {DomParser} xamlDoc The XAML code represented as an XML DOMParser object.
-   *
    * @returns {string} The name of the underlying CLR class.
    * @throws {TypeError} Parameter xamlDoc is required and must be a DomParser object.
    * @since 1.0.0
@@ -246,7 +239,6 @@ export class XamlProcessor {
    *
    * @param {DomParser} xamlDoc The XAML code represented as an XML DOMParser object.
    * @param {string} argumentName The name of the argument.
-   *
    * @returns {string} The default value for the argument if it is specified.
    * @throws {TypeError} Parameter xamlDoc is required and must be a DomParser object.
    * @since 1.0.0
