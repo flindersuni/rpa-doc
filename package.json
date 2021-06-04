@@ -7,8 +7,7 @@
     "test": "mocha --require esm",
     "lint": "eslint .",
     "docs": "jsdoc -c .jsdocrc.json",
-    "coverage": "c8 mocha --require esm",
-    "coveralls": "c8 --reporter=text-lcov mocha --require esm | coveralls"
+    "coverage": "c8 mocha --require esm"
   },
   "private": true,
   "repository": {
